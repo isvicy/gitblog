@@ -2,6 +2,17 @@ name: Generate GitBlog README
 
 on:
   workflow_dispatch:
+    inputs:
+      debug_mode:
+        description: "Enable debug output"
+        required: false
+        type: boolean
+        default: false
+      test_issue_number:
+        description: "Test issue number"
+        required: false
+        type: string
+        default: ""
   issues:
     types: [opened, edited]
   issue_comment:
@@ -9,6 +20,7 @@ on:
   push:
     branches:
       - main
+      - debug-workflow
     paths:
       - main.py
 
@@ -16,8 +28,17 @@ jobs:
   sync:
     name: Generate README
     runs-on: ubuntu-latest
-    if: github.repository_owner_id == github.event.issue.user.id || github.event_name == 'push'
+    if: github.repository_owner_id == github.event.issue.user.id || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
+      - name: Debug Output
+        if: ${{ inputs.debug_mode }}
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Repository owner: ${{ github.repository_owner }}"
+          echo "Input issue number: ${{ inputs.test_issue_number }}"
+          echo "Full github context:"
+          echo "${{ toJSON(github) }}"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Python
@@ -37,7 +58,11 @@ jobs:
       - name: Generate new md
         run: |
           source venv/bin/activate
-          python main.py ${{ secrets.GITBLOG }} ${{ github.repository }} --issue_number '${{ github.event.issue.number }}'
+          if [ -n "${{ inputs.test_issue_number }}" ]; then
+            python main.py ${{ secrets.GITBLOG }} ${{ github.repository }} --issue_number '${{ inputs.test_issue_number }}'
+          else
+            python main.py ${{ secrets.GITBLOG }} ${{ github.repository }} --issue_number '${{ github.event.issue.number }}'
+          fi
 
       - name: Push README
         run: |
