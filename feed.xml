@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns="http://www.w3.org/2005/Atom"><id>https://github.com/isvicy/gitblog</id><title>RSS feed of isvicy's gitblog</title><updated>2024-11-17T02:20:34.063496+00:00</updated><link href="https://github.com/isvicy/gitblog"/><link href="https://raw.githubusercontent.com/isvicy/gitblog/master/feed.xml" rel="self"/><generator uri="https://lkiesow.github.io/python-feedgen" version="1.0.0">python-feedgen</generator><entry><id>https://github.com/isvicy/gitblog/issues/3</id><title>Neovim 小技巧</title><updated>2024-11-17T02:20:34.449855+00:00</updated><content type="html"><![CDATA[<p><strong>本文旨在记录自己在使用 Neovim Debug 以及和 AI 结对编程的过程中使用的一些有助于提升效率的小技巧。</strong></p>
+<feed xmlns="http://www.w3.org/2005/Atom"><id>https://github.com/isvicy/gitblog</id><title>RSS feed of isvicy's gitblog</title><updated>2024-11-19T12:37:58.806672+00:00</updated><link href="https://github.com/isvicy/gitblog"/><link href="https://raw.githubusercontent.com/isvicy/gitblog/master/feed.xml" rel="self"/><generator uri="https://lkiesow.github.io/python-feedgen" version="1.0.0">python-feedgen</generator><entry><id>https://github.com/isvicy/gitblog/issues/3</id><title>Neovim 小技巧</title><updated>2024-11-19T12:37:59.097864+00:00</updated><content type="html"><![CDATA[<p><strong>本文旨在记录自己在使用 Neovim Debug 以及和 AI 结对编程的过程中使用的一些有助于提升效率的小技巧。</strong></p>
 <h3>1. 在 Neovim 中编译 Go 程序，并且将编译失败的结果同步到 quicklist 窗口</h3>
 <h4>场景</h4>
 <ol>
@@ -117,7 +117,7 @@ end, {
 </code></pre>
 <h4>使用说明</h4>
 <p>将此段代码放置到你存放 auto cmd 的文件内，然后使用 <code>&lt;leader&gt;ccd</code> (ccd -&gt; code copy diagnostic) 即可复制当前行的错误信息到剪切板。</p>
-]]></content><link href="https://github.com/isvicy/gitblog/issues/3"/><category term="neovim"/><published>2024-11-17T02:20:00+00:00</published></entry><entry><id>https://github.com/isvicy/gitblog/issues/1</id><title>设置 WSL 开机启动</title><updated>2024-11-17T02:20:34.652110+00:00</updated><content type="html"><![CDATA[<p>之所以有这个需求是因为有一台机器 （以下称作机器 A）作为我某一个内网（以下称作内网 A ）的入口，是以 tailscale 节点的形式加入到我的大内网的，并且注册了 sub route 到 tailscale 网络。基于此，如果我其他 tailscale 节点想要访问内网 A，在 sub route 覆盖范围内的 ip 的流量会自动被 tailscale 路由到机器 A，然后再路由到实际 ip 对应的服务器。</p>
+]]></content><link href="https://github.com/isvicy/gitblog/issues/3"/><category term="neovim"/><published>2024-11-17T02:20:00+00:00</published></entry><entry><id>https://github.com/isvicy/gitblog/issues/1</id><title>设置 WSL 开机启动</title><updated>2024-11-19T12:37:59.230243+00:00</updated><content type="html"><![CDATA[<p>之所以有这个需求是因为有一台机器 （以下称作机器 A）作为我某一个内网（以下称作内网 A ）的入口，是以 tailscale 节点的形式加入到我的大内网的，并且注册了 sub route 到 tailscale 网络。基于此，如果我其他 tailscale 节点想要访问内网 A，在 sub route 覆盖范围内的 ip 的流量会自动被 tailscale 路由到机器 A，然后再路由到实际 ip 对应的服务器。</p>
 <p>但当我访问部分内网 A 中机器托管的域名时，此时流量不会被 tailscale 自动代理，需要借助诸如  ssh 动态代理之类的方式，建立动态代理之后在终端或者浏览器中使用来访问对应域名。</p>
 <p>由于机器 A 是 windows 系统，ssh server 是通过 WSL 启动的，为了保证 ssh 尽量任何时候都可以直连来建立动态代理，需要在 windows 自动更新或者异常重启之后，自动启动 WSL。</p>
 <p>使用的启动脚本如下：</p>
@@ -139,4 +139,5 @@ ws.run ps_cmd, 0
 </code></pre>
 <p>代码已经提供了注释，包括脚本放置的位置。 </p>
 <p>最终实现的效果是 Windows 开机之后会自动执行此脚本，脚本启动 WSL 之后，会等待五秒钟，然后弹出一个 Windows 通知。</p>
+<p><img src="https://github.com/user-attachments/assets/551765dd-a00b-4be0-89b2-a3894d4a360c" alt="image" /></p>
 ]]></content><link href="https://github.com/isvicy/gitblog/issues/1"/><category term="trick"/><category term="windows"/><published>2024-11-16T08:41:30+00:00</published></entry></feed>
